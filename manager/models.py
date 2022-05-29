@@ -1,6 +1,8 @@
-from dataclasses import field
+from curses import meta
+from dataclasses import field, fields
 from pyexpat import model
 from django.db import models
+from django.forms import ModelForm
 
 # Create your models here.
 class IncomeAmount(models.Model):
@@ -13,7 +15,11 @@ class IncomeAmount(models.Model):
     name=models.CharField(max_length=100,choices=INCOME_CATEGORIES)
     date_received=models.DateField()
     amt=models.IntegerField()
-    
+
+    def __init__(self):
+        return self.name
+
+
 class Expense(models.Model):
     EXPENSE_CATEGORIES = (
         ('clothing', 'Clothing'),
@@ -32,3 +38,6 @@ class Expense(models.Model):
     price=models.FloatField()
     purchase_date=models.DateField()
     
+    def __init__(self):
+        return self.name
+
